@@ -80,10 +80,8 @@ run_container(){
   echo -e "Running the container -> $container_name"
   echo -e "$command_log_sym $running_container_cmd"
 
-  $running_container_cmd &> container_hash_file
-  container_hash_file=$(head -n 1 container_hash_file)
-  echo "New container $container_name (hash)-> $container_hash_file"
-  rm container_hash_file
+  container_hash=$($running_container_cmd)
+  echo -e "$info_log_sym New container $container_name (hash)-> $container_hash"
 }
 
 main(){
