@@ -7,7 +7,12 @@
 # use the lxc as a localserver
 # ############################
 # All variables are defined before execution for better understanding and modifying
-
+#
+# Log variables:
+#   - xxx_log_sym  (where xxx can be an action or descriptive name)
+#       :: This will be pattern for these variables,
+#          and they will give the user details while execution
+# -----eHLui-----
 CYAN='\033[0;36m'
 NO_COLOR='\033[0m'
 
@@ -24,6 +29,7 @@ host_dir="$(pwd)/practising/"
 container_dir="/var/www/html"
 
 command_log_sym="$CYAN[COMMAND]$NO_COLOR ->"
+info_log_sym="$CYAN[INFO]$NO_COLOR ->"
 
 
 building_img_cmd="docker image build . -t $image_name"
@@ -35,11 +41,13 @@ while true; do
     read -p  "Do you need to build the image? [y/n]: " opt
     case $opt in
         [Yy]* ) 
-              echo -e $command_log_sym $building_img_cmd;
-              exit;;
+              echo -e $command_log_sym $building_img_cmd
+              break
+              ;;
         [Nn]* )
-              echo  $no_images_deleted;
-              exit;;
+              echo -e $info_log_sym $no_images_deleted
+              break
+              ;;
         * ) echo "Please answer yes or no. [y/n]";;
     esac
 done
