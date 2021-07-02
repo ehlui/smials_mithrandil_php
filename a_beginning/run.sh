@@ -23,20 +23,26 @@ container_port=80
 host_dir="$(pwd)/practising/"
 container_dir="/var/www/html"
 
-info_log_sym="$CYAN[COMMAND]$NO_COLOR ->"
+command_log_sym="$CYAN[COMMAND]$NO_COLOR ->"
+
 
 building_img_cmd="docker image build . -t $image_name"
 running_cmd="docker run -p $host_port:$container_port --name $container_name -d -v $host_dir:$container_dir $container_name"
 
+no_images_deleted="No images are deleted"
 
-echo -n "Do you need to build the image? [y/n]"
-read OPT
+while true; do
+    read -p  "Do you need to build the image? [y/n]: " opt
+    case $opt in
+        [Yy]* ) 
+              echo -e $command_log_sym $building_img_cmd;
+              exit;;
+        [Nn]* )
+              echo  $no_images_deleted;
+              exit;;
+        * ) echo "Please answer yes or no. [y/n]";;
+    esac
+done
 
-if [ $OPT == $yes_min ] || [ $OPT == $yes_capital ]
-then
-  echo -e "$info_log_sym $building_img_cmd"
-  $building_img_cmd
-fi
-
-echo -e "$info_log_sym $running_cmd"
+echo -e "$command_log_sym $running_cmd"
 $running_cmd
