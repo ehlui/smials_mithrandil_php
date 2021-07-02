@@ -7,7 +7,12 @@
 # use the lxc as a localserver
 # ############################
 # All variables are defined before execution for better understanding and modifying
-
+#
+# Log variables:
+#   - xxx_log_sym  (where xxx can be an action or descriptive name)
+#       :: This will be pattern for these variables,
+#          and they will give the user details while execution
+# -----eHLui-----
 CYAN='\033[0;36m'
 NO_COLOR='\033[0m'
 
@@ -23,20 +28,66 @@ container_port=80
 host_dir="$(pwd)/practising/"
 container_dir="/var/www/html"
 
-info_log_sym="$CYAN[COMMAND]$NO_COLOR ->"
+command_log_sym="$CYAN[COMMAND]$NO_COLOR ->"
+info_log_sym="$CYAN[INFO]$NO_COLOR ->"
+
 
 building_img_cmd="docker image build . -t $image_name"
-running_cmd="docker run -p $host_port:$container_port --name $container_name -d -v $host_dir:$container_dir $container_name"
+remove_container_cmd="docker rm -f $container_name"
+running_container_cmd="docker run -p $host_port:$container_port --name $container_name -d -v $host_dir:$container_dir $container_name"
 
 
-echo -n "Do you need to build the image? [y/Y]"
-read OPT
+no_images_deleted="No images are deleted"
+no_container_deleted="No containers are deleted"
 
-if [ $OPT == $yes_min ] || [ $OPT == $yes_capital ]
-then
-  echo -e "$info_log_sym $building_img_cmd"
-  $building_img_cmd
-fi
+build_image(){
+  while true; do
+      read -p  "Do you need to build the image? [y/n]: " opt
+      case $opt in
+          [Yy]* ) 
+                echo -e $command_log_sym $building_img_cmd
+                $building_img_cmd
+                break
+                ;;
+          [Nn]* )
+                echo -e $info_log_sym $no_images_deleted
+                break
+                ;;
+          * ) echo "Please answer yes or no. [y/n]";;
+      esac
+  done
+}
 
-echo -e "$info_log_sym $running_cmd"
-$running_cmd
+remove_container(){
+  while true; do
+      read -p  "Do you need to remove the container? [y/n]: " opt
+      case $opt in
+          [Yy]* ) 
+                echo -e $command_log_sym $remove_container_cmd
+                $remove_container_cmd
+                break
+                ;;
+          [Nn]* )
+                echo -e $info_log_sym $no_container_deleted
+                break
+                ;;
+          * ) echo -e "Please answer yes or no. [y/n]";;
+      esac
+  done
+}
+
+run_container(){
+  echo -e "Running the container -> $container_name"
+  echo -e "$command_log_sym $running_container_cmd"
+
+  container_hash=$($running_container_cmd)
+  echo -e "$info_log_sym New container $container_name (hash)-> $container_hash"
+}
+
+main(){
+  remove_container
+  build_image
+  run_container
+}
+
+main
