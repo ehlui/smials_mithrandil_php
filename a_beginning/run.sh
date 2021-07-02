@@ -33,24 +33,63 @@ info_log_sym="$CYAN[INFO]$NO_COLOR ->"
 
 
 building_img_cmd="docker image build . -t $image_name"
-running_cmd="docker run -p $host_port:$container_port --name $container_name -d -v $host_dir:$container_dir $container_name"
+remove_container_cmd="docker stop $container_name && docker rm $container_name"
+running_container_cmd="docker run -p $host_port:$container_port --name $container_name -d -v $host_dir:$container_dir $container_name"
+
 
 no_images_deleted="No images are deleted"
+no_container_deleted="No containers are deleted"
 
-while true; do
-    read -p  "Do you need to build the image? [y/n]: " opt
-    case $opt in
-        [Yy]* ) 
-              echo -e $command_log_sym $building_img_cmd
-              break
-              ;;
-        [Nn]* )
-              echo -e $info_log_sym $no_images_deleted
-              break
-              ;;
-        * ) echo "Please answer yes or no. [y/n]";;
-    esac
-done
+build_image(){
+  while true; do
+      read -p  "Do you need to build the image? [y/n]: " opt
+      case $opt in
+          [Yy]* ) 
+                echo -e $command_log_sym $building_img_cmd
+                $building_img_cmd
+                break
+                ;;
+          [Nn]* )
+                echo -e $info_log_sym $no_images_deleted
+                break
+                ;;
+          * ) echo "Please answer yes or no. [y/n]";;
+      esac
+  done
+}
 
-echo -e "$command_log_sym $running_cmd"
-$running_cmd
+remove_container(){
+  while true; do
+      read -p  "Do you need to remove the container? [y/n]: " opt
+      case $opt in
+          [Yy]* ) 
+                echo -e $command_log_sym $remove_container_cmd
+                $remove_container_cmd
+                break
+                ;;
+          [Nn]* )
+                echo -e $info_log_sym $no_container_deleted
+                break
+                ;;
+          * ) echo -e "Please answer yes or no. [y/n]";;
+      esac
+  done
+}
+
+run_container(){
+  echo -e "\nRunning the container -> $container_name"
+  echo -e "$command_log_sym $running_container_cmd"
+  $running_container_cmd
+  #$running_container_cmd &> container_hash_file
+  #container_hash_file=$(head -n 1 container_hash_file)
+  #echo "New container $container_name -> $container_hash_file"
+  #rm container_hash_file
+}
+
+main(){
+  remove_container
+  build_image
+  run_container
+}
+
+main
