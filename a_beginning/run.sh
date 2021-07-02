@@ -29,7 +29,7 @@ building_img_cmd="docker image build . -t $image_name"
 running_cmd="docker run -p $host_port:$container_port --name $container_name -d -v $host_dir:$container_dir $container_name"
 
 
-echo -n "Do you need to build the image? [y/Y]"
+echo -n "Do you need to build the image? [y/n]"
 read OPT
 
 if [ $OPT == $yes_min ] || [ $OPT == $yes_capital ]
