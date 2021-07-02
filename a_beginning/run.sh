@@ -33,7 +33,7 @@ info_log_sym="$CYAN[INFO]$NO_COLOR ->"
 
 
 building_img_cmd="docker image build . -t $image_name"
-remove_container_cmd="docker stop $container_name && docker rm $container_name"
+remove_container_cmd="docker rm -f $container_name"
 running_container_cmd="docker run -p $host_port:$container_port --name $container_name -d -v $host_dir:$container_dir $container_name"
 
 
@@ -77,13 +77,13 @@ remove_container(){
 }
 
 run_container(){
-  echo -e "\nRunning the container -> $container_name"
+  echo -e "Running the container -> $container_name"
   echo -e "$command_log_sym $running_container_cmd"
-  $running_container_cmd
-  #$running_container_cmd &> container_hash_file
-  #container_hash_file=$(head -n 1 container_hash_file)
-  #echo "New container $container_name -> $container_hash_file"
-  #rm container_hash_file
+
+  $running_container_cmd &> container_hash_file
+  container_hash_file=$(head -n 1 container_hash_file)
+  echo "New container $container_name (hash)-> $container_hash_file"
+  rm container_hash_file
 }
 
 main(){
