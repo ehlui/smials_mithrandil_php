@@ -8,7 +8,7 @@ This's my jounrey on learning and understanding _web developemnt_ on my own. Thi
 
 One way to keep track of my daily progress (or weekly or monthly) and keep pushing myself on these kind of _100 days of coding_ challenge I just started.
 
-- I feel like I need to expand my point of view more than back-end java or python-like projects so far.
+- I feel like I need to expand my point of view more than back-end java or python-like projects and jobs so far I did.
 
 
 ### :heavy_check_mark: The Goal
