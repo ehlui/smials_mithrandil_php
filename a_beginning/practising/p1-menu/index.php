@@ -16,12 +16,12 @@
                 'addition'=>'?select=2',
                 'some globals'=>'?select=3',
             ];
-    ?>
+        ?>
         <ol class="menu-items">
             <?php
-                    foreach(URL_ITEMS as $key => $value){
-                        echo "<li class='".$key."'><a href='".INDEX.$value."'>".$key."</a></li>";
-                    }
+                foreach(URL_ITEMS as $key => $value){
+                    echo "<li class='".$key."'><a href='".INDEX.$value."'>".$key."</a></li>";
+                }
             ?>
         </ol>
     </div>
