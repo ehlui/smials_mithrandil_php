@@ -12,9 +12,9 @@
         <?php
             const INDEX = 'index.php';
             const URL_ITEMS=[
-                'A'=>'?select=1',
-                'B'=>'?select=2',
-                'C'=>'?select=3',
+                'greet'=>'?select=1',
+                'addition'=>'?select=2',
+                'some globals'=>'?select=3',
             ];
     ?>
         <ol class="menu-items">
@@ -27,15 +27,16 @@
     </div>
     <section>
         <?php
+           include_once 'menu_func.php';
            switch($_GET['select']){
                 case 1:
-                    echo 1;
+                    greet();
                 break;
                 case 2:
-                    echo 2;
+                    add_two();
                 break;
                 case 3:
-                    echo 3;
+                    some_superglobals();
                 break;
            }
         ?>
