@@ -1,12 +1,5 @@
 <?php
-       $is_created=setcookie("cookiename2","value",time() + 1,'/');
-        $msg="No cookies were created :(";
-        if ( $is_created){
-            $msg="Cookie created!";
-        }
-            echo $msg . '<br>';
-        echo var_dump($_COOKIE['cookiename']);
-
+       $is_created=setcookie("cookiename","value",time() + 10,'/');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +10,6 @@
     <title>Create Cookie</title>
 </head>
 <body>
-
+    <a href="view.php">See if cookies was created</a>
 </body>
 </html>
