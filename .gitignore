@@ -1,2 +1,6 @@
 # IDEs
 .idea
+
+# PHP configs
+*.ini
+*.ini-*
