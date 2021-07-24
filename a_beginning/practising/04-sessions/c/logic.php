@@ -17,7 +17,7 @@ $is_numbers = isset($num1) && isset($num2);
 
 if($is_numbers){
     set_zero_to_nulls($num1,$num2);
-    $_SESSION["result"] = $_GET["num1"] + $_GET["num2"];
+    $_SESSION["result"] = $num1 + $num2;
 }
 
 header('Location: '.$PREVIOUS_FILE);

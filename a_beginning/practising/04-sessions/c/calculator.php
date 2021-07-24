@@ -10,16 +10,15 @@
 <body>
     <h2>Make your sum</h2>
     <form action="logic.php" method="get">
-        <p>Number 1: <input type="number" name="num1" /></p>
-        <p>Number 2: <input type="number" name="num2" /></p>
+        <p>Number 1: <input type="number" name="num1" placeholder="5" /></p>
+        <p>Number 2: <input type="number" name="num2" placeholder="3" /></p>
         <p><input type="submit" value="Calculate!" /></p>
     </form>
 
-    <h3>Result</h3>
     <span>
     <?php
         if(isset($_SESSION["result"])){
-            echo $_SESSION["result"];
+            echo "<span>Result: <b>".$_SESSION["result"]."</b></span>";
             unset($_SESSION);
             session_destroy();
         }
