@@ -16,9 +16,6 @@
 CYAN='\033[0;36m'
 NO_COLOR='\033[0m'
 
-yes_capital="Y"
-yes_min="y"
-
 image_name="php-beginner"
 container_name=$image_name
 
@@ -45,12 +42,12 @@ build_image(){
       read -p  "Do you need to build the image? [y/n]: " opt
       case $opt in
           [Yy]* ) 
-                echo -e $command_log_sym $building_img_cmd
+                echo -e "$command_log_sym $building_img_cmd"
                 $building_img_cmd
                 break
                 ;;
           [Nn]* )
-                echo -e $info_log_sym $no_images_deleted
+                echo -e "$info_log_sym $no_images_deleted"
                 break
                 ;;
           * ) echo "Please answer yes or no. [y/n]";;
@@ -63,12 +60,12 @@ remove_container(){
       read -p  "Do you need to remove the container? [y/n]: " opt
       case $opt in
           [Yy]* ) 
-                echo -e $command_log_sym $remove_container_cmd
+                echo -e "$command_log_sym $remove_container_cmd"
                 $remove_container_cmd
                 break
                 ;;
           [Nn]* )
-                echo -e $info_log_sym $no_container_deleted
+                echo -e "$info_log_sym $no_container_deleted"
                 break
                 ;;
           * ) echo -e "Please answer yes or no. [y/n]";;
