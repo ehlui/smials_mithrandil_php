@@ -4,3 +4,6 @@
 # PHP configs
 *.ini
 *.ini-*
+
+# Files uploaded
+uploads
