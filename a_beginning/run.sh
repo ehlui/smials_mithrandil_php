@@ -16,10 +16,10 @@
 CYAN='\033[0;36m'
 NO_COLOR='\033[0m'
 
-image_name="php-beginner"
+image_name="php-beginner-v2"
 container_name=$image_name
 
-host_port=3000
+host_port=3001
 container_port=80
 
 host_dir="$(pwd)/practising/"
