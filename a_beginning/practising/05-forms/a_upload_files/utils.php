@@ -12,7 +12,7 @@
     }
 
 
- function get_upload_file_error($err_code){
+ function show_upload_file_error($err_code){
      $php_file_upload_errors = array(
          0 => 'There is no error, the file uploaded with success. code = [UPLOAD_ERR_OK]',
          1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini .   code =  [UPLOAD_ERR_INI_SIZE]',
