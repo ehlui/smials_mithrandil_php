@@ -12,7 +12,8 @@ if ($is_file_array) {
         print_key_value_array($file_uploaded_array);
     } else
         get_upload_file_error($err_code);
-
-} else {
-    echo "File" . $_FILES["image-up"];
+}else{
+    echo "It happened an error... Redirecting to try again!";
+    # https://www.php.net/manual/en/function.header.php
+    header( "refresh:5; url=index.php" );
 }
