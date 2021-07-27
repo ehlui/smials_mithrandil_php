@@ -1,40 +1,44 @@
 <?php
-session_start();
-# As I config docker-apache path __DIR__ == $_SERVER['DOCUMENT_ROOT']
-$dirs = scandir(__DIR__);
-$root_path = __DIR__;
+#session_start();
+include_once 'helpers/menu_helps.php';
 
-foreach ($dirs as $dir) {
-    $is_dot = ($dir == '.' || $dir == '..');
-    $menu_path = $root_path . '/' . $dir;
-    if (is_dir($dir) && !$is_dot) {
-        $sub_dir_array = scandir($menu_path);
-        foreach ($sub_dir_array as $subdir) {
-            $is_dot = ($subdir == '.' || $subdir == '..');
-            if (!$is_dot) {
-                $subdirs_arr[$dir] = $sub_dir_array;
-            }
-        }
-        ?>
-        <?php
-    }
-    ?>
-<?php
-    if(isset($subdirs_arr))
-        $_SESSION['subdirs'] =$subdirs_arr;
+# 0. Extract all the files
+$files = extract_files_path_recursivly('./');  #Revisar como que me da 7 repetidos... me esta dando dirs repetidos
+
+# 1. Extract parent dirs into an array
+$parent_dirs_array = array();
+foreach ($files as $f) {
+    $split_arr = explode('/', $f);
+    $first_position_not_empty = 1;
+    $parent_dir = $split_arr[$first_position_not_empty];
+    if (is_dir($parent_dir))
+        array_push($parent_dirs_array, $parent_dir);
 }
+# 1.5 Remove repeated parents
+$parent_dirs_array = array_unique($parent_dirs_array);
 
-    if(isset($_SESSION['subdirs'])){
-        ?>
-        <dl>
-<?php
-        foreach($_SESSION['subdirs'] as $parents_dir=>$sub_dirs_arrays) {
-            echo '<dt><b>' . $parents_dir . '</b></dt>';
-            foreach ($sub_dirs_arrays as $subdirs)
-                echo '<dd>' . $subdirs.'</dd>';
+# 2. If path contains the parent it will be store in the array of the parent
+$sub_dir_files = array();
+foreach ($files as $file) {
+    foreach ($parent_dirs_array as $parent_dir) {
+        $is_found = strpos($file, $parent_dir);
+        if ($is_found != false) {
+            array_push($sub_dir_files, $file);
         }
     }
+}
+# 2.5 Sort all the arrays for the menu
+sort($parent_dirs_array);
+sort($sub_dir_files);
 
-?>
-        </dl>
-
+# 3. Generate the menu Parent dir with its files
+echo '<dl>';
+foreach ($parent_dirs_array as $parent_dir) {
+    echo '<dt>' . $parent_dir . ' </dt>';
+    foreach ($files as $file) {
+        $is_found = strpos($file, $parent_dir);
+        if ($is_found != false)
+            echo '<dd>'.$file.'</dd>';
+    }
+}
+echo '</dl>';
