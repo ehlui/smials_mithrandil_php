@@ -1,6 +1,8 @@
 <?php
 include_once 'helpers/menu_helps.php';
 
+echo '<h1>Menu</h1>';
+
 # 0. Extract all the files
 $files = extract_files_path_recursively('./');
 
