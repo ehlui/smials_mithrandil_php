@@ -58,13 +58,28 @@ function extract_sub_dir_files($parent_array, $files_array, $is_sorted): array
 
 function make_menu($parent_dir_array, $sub_files_array): void
 {
+    $DIRECTORY_ICO  = '&#128451;';
+    $FOLDER_ICO     = '&#128194';
+    $TAB            = '&emsp;';
+
     echo '<dl>';
     foreach ($parent_dir_array as $parent_dir) {
-        echo '<dt>' . $parent_dir . ' </dt>';
+        echo '<dt>('.$DIRECTORY_ICO.') ' . $parent_dir . ' </dt>';
         foreach ($sub_files_array as $file) {
             $is_found = strpos($file, $parent_dir);
-            if ($is_found != false)
-                echo '<dd>' . $file . '</dd>';
+            if ($is_found != false) {
+                $split_arr = explode('/', $file);
+                $file_name = array_pop($split_arr);
+                $file_path = implode('/', $split_arr);
+                $is_php_extension = strpos($file_name, 'php',);
+
+                $file_path ='<dd><i>'.$FOLDER_ICO.'' . $file_path . '</i><br>'.$TAB  .' ';
+                $file_link =' <a href="' . $file . '">' . $file_name . '<a/></dd>';
+                $file_sym=">";
+                if ($is_php_extension)
+                    $file_sym = '<span><img src="/uploads/php_file.ico" width="15"/></span>';
+                echo $file_path.$file_sym.$file_link;
+            }
         }
     }
     echo '</dl>';
