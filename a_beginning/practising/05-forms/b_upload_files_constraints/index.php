@@ -18,18 +18,22 @@
 $file_session_arr = $_SESSION['file'];
 
 if (isset($file_session_arr)) {
-if ($file_session_arr) {
-    ?>
-    <p style="color:green">
-        <?php echo $_SESSION['file']['name'] ?>
-        <b>uploaded !</b>
-    </p>
-<?php } else { ?>
-    <p style="color:red">
-        <?php echo $_SESSION['file']['name'] ?>
-        is not valid because of the extension
-        <b><?php echo $_SESSION['file']['extension'] ?></b>
-    </p>
-<?php }} ?>
+    if ($file_session_arr) {
+        include_once 'helpers.php';
+        ?>
+        <p style="color:green">
+            <?php echo $_SESSION['file']['name'] ?>
+            <b>uploaded !</b>
+        </p>
+        <?php
+        echo build_img_tag($_SESSION['file']);
+    } else { ?>
+        <p style="color:red">
+            <?php echo $_SESSION['file']['name'] ?>
+            is not valid because of the extension
+            <b><?php echo $_SESSION['file']['extension'] ?></b>
+        </p>
+    <?php }
+} ?>
 </body>
 </html>
