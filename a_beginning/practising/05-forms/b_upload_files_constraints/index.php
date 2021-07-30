@@ -18,7 +18,7 @@
 $file_session_arr = $_SESSION['file'];
 
 if (isset($file_session_arr)) {
-    if ($file_session_arr) {
+    if ($file_session_arr['is_valid_extension']) {
         include_once 'helpers.php';
         ?>
         <p style="color:green">
@@ -29,9 +29,10 @@ if (isset($file_session_arr)) {
         echo build_img_tag($_SESSION['file']);
     } else { ?>
         <p style="color:red">
-            <?php echo $_SESSION['file']['name'] ?>
+            <b><?php echo $_SESSION['file']['name'] ?></b>
             is not valid because of the extension
             <b><?php echo $_SESSION['file']['extension'] ?></b>
+            is not valid.
         </p>
     <?php }
 } ?>

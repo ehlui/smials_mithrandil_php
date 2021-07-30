@@ -5,8 +5,9 @@ include_once 'helpers.php';
 $file_array = $_FILES['image-up'];
 $valid_extensions = array('png', 'gif', 'jpg');
 
-function load_file_info($file_array, $file_info, $is_valid_extension): void
+function load_file_info($file_info, $is_valid_extension): void
 {
+    global $file_array;
     $_SESSION['file'] = array(
         'name' => $file_array['name'],
         'extension' => $file_info['extension'],
@@ -31,7 +32,7 @@ if (isset($file_array)) {
     $file_info = pathinfo($file_array['name']);
     $is_valid_extension = in_array($file_info['extension'], $valid_extensions);
 
-    load_file_info($file_array, $file_array, $is_valid_extension);
+    load_file_info($file_info, $is_valid_extension);
     if ($is_valid_extension) {
         perform_upload($file_array);
         load_img_properties();
