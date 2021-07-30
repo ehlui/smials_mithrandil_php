@@ -21,4 +21,4 @@ if (isset($file_array)) {
     );
 
 }
-header("refresh:3; url=index.php");
+header("Location: index.php");

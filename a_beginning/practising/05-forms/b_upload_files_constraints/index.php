@@ -21,15 +21,14 @@ if (isset($file_session_arr)) {
 if ($file_session_arr) {
     ?>
     <p style="color:green">
-        <?php $_SESSION['file']['name'] ?>
+        <?php echo $_SESSION['file']['name'] ?>
         <b>uploaded !</b>
     </p>
-
 <?php } else { ?>
     <p style="color:red">
-        <?php $_SESSION['file']['name'] ?>
+        <?php echo $_SESSION['file']['name'] ?>
         is not valid because of the extension
-        <b><?php $_SESSION['file']['extension'] ?></b>
+        <b><?php echo $_SESSION['file']['extension'] ?></b>
     </p>
 <?php }} ?>
 </body>
