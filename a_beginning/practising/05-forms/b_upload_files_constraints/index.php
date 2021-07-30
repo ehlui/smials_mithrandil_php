@@ -13,28 +13,15 @@
     <p> Image: <input type="file" name="image-up" id="upload-image"></p>
     <p><input type="submit" value="Upload"/></p>
 </form>
-
 <?php
 $file_session_arr = $_SESSION['file'];
-
 if (isset($file_session_arr)) {
-    if ($file_session_arr['is_valid_extension']) {
-        include_once 'helpers.php';
-        ?>
-        <p style="color:green">
-            <?php echo $_SESSION['file']['name'] ?>
-            <b>uploaded !</b>
-        </p>
-        <?php
-        echo build_img_tag($_SESSION['file']);
-    } else { ?>
-        <p style="color:red">
-            <b><?php echo $_SESSION['file']['name'] ?></b>
-            is not valid because of the extension
-            <b><?php echo $_SESSION['file']['extension'] ?></b>
-            is not valid.
-        </p>
-    <?php }
-} ?>
+    if ($file_session_arr['is_uploaded']) {
+        include 'after_button/file_uploaded.php';
+    } else
+        include 'after_button/wrong_extension.php';
+} else
+    include 'after_button/not_uploaded.php';
+?>
 </body>
 </html>
