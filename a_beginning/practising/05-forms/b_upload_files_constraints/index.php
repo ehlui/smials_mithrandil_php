@@ -8,20 +8,23 @@
     <title>&#128194;|UploadFiles+Constrains</title>
 </head>
 <body>
-<!--When upload files we always need set POST and enctype=multipart/form-data-->
 <form enctype="multipart/form-data" method="post" action="uploading.php">
     <p> Image: <input type="file" name="image-up" id="upload-image"></p>
     <p><input type="submit" value="Upload"/></p>
 </form>
 <?php
-$file_session_arr = $_SESSION['file'];
-if (isset($file_session_arr)) {
-    if ($file_session_arr['is_uploaded']) {
-        include 'after_button/file_uploaded.php';
-    } else
-        include 'after_button/wrong_extension.php';
-} else
-    include 'after_button/not_uploaded.php';
+if (isset($_SESSION['file'])) {
+    if ($_SESSION['file']['is_uploaded']) {
+        include_once 'after_button/file_uploaded.php';
+    } else {
+        include_once 'after_button/wrong_extension.php';
+    }
+    session_destroy();
+}
+if (isset($_SESSION['not-file'])) {
+    include_once 'after_button/not_uploaded.php';
+    unset($_SESSION['not-file']);
+}
 ?>
 </body>
 </html>

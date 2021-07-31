@@ -9,15 +9,11 @@ function load_file_info($file_info, $is_valid_extension, $is_uploaded = false): 
 {
     global $file_array;
     global $valid_extensions;
-    $file_info_arr = array(
-        'name' => $file_array['name'],
-        'extension' => $file_info['extension'],
-        'is_valid_extension' => $is_valid_extension,
-        'valid_extensions' => $valid_extensions,
-        'is_uploaded' => $is_uploaded
-    );
-    $_SESSION['file'] = array_merge($_SESSION['file'], $file_info_arr);
-
+    $_SESSION['file']['name'] = $file_array['name'];
+    $_SESSION['file']['extension'] = $file_info['extension'];
+    $_SESSION['file']['is_valid_extension'] = $is_valid_extension;
+    $_SESSION['file']['valid_extensions'] = $valid_extensions;
+    $_SESSION['file']['is_uploaded'] = $is_uploaded;
 }
 
 function load_img_properties(): void
@@ -29,7 +25,10 @@ function load_img_properties(): void
     $_SESSION['file']['width'] = '100';
 }
 
-if (isset($file_array)) {
+function perform_upload_operations(): void
+{
+    global $file_array;
+    global $valid_extensions;
     $file_info = pathinfo($file_array['name']);
     $is_valid_extension = in_array($file_info['extension'], $valid_extensions);
     $is_uploaded = false;
@@ -39,5 +38,15 @@ if (isset($file_array)) {
         $is_uploaded = perform_upload($file_array);
     }
     load_file_info($file_info, $is_valid_extension, $is_uploaded);
+}
+
+if (isset($file_array)) {
+    $has_not_error = $file_array['error'] == 0;
+    echo $file_array['error'];
+    if ($has_not_error) {
+        perform_upload_operations();
+    } else {
+        $_SESSION['not-file'] = true;
+    }
 }
 header("Location: index.php");

@@ -16,20 +16,10 @@ function perform_upload($file_array): bool
 
 function build_img_tag(array $img_properties): string
 {
-    return '<img src="' .
-        $img_properties['path'] . '
-        " width="' .
-        $img_properties['width'] . '
-        " />';
+    return '<img src="' . $img_properties['path'] . '" width="' . $img_properties['width'] . '" />';
 }
 
 function show_when_wrong_extension()
-{
-    session_destroy();
-    $_SESSION = null;
-}
-
-function show_when_is_not_uploaded()
 {
     session_destroy();
     $_SESSION = null;

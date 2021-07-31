@@ -5,12 +5,7 @@
     is not valid.
 </p>
 <p> Valid extensions:
-    <?php echo implode(', ', $_SESSION['file']['valid_extensions']) ?>
+    <b><?php echo implode(', ', $_SESSION['file']['valid_extensions']) ?></b>
 </p>
 <?php
-session_destroy();
-$_SESSION = null;
-
-# Avoid reload the page with session data not deleted yet
-header("Location: index.php");
-s ?>
+?>
