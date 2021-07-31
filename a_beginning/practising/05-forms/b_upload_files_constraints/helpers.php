@@ -18,9 +18,3 @@ function build_img_tag(array $img_properties): string
 {
     return '<img src="' . $img_properties['path'] . '" width="' . $img_properties['width'] . '" />';
 }
-
-function show_when_wrong_extension()
-{
-    session_destroy();
-    $_SESSION = null;
-}
