@@ -27,20 +27,13 @@ $csrf_token = create_csrf_token($current_file_page, $_SESSION['key_hash']);
 </head>
 <body>
 <?php
-
 if (isset($_POST))
     $login = $_SESSION['log-in'];
+
 $is_not_logged = empty($login);
 if ($is_not_logged) {
     $_SESSION['csrf_token'] = $csrf_token;
-    ?>
-    <form method="post" action="sign-up.php">
-        <p>Username: <input type="text" name="user-name" required/></p>
-        <p>Password: <input type="password" name="password" required/></p>
-        <input name="csrf_token" value="<?php echo $csrf_token ?>" hidden/>
-        <input type="submit" name="submit" value="Sign-up"/>
-    </form>
-    <?php
+    include 'forms/signup.php';
 } else {
     include 'forms/logout.php';
 }
